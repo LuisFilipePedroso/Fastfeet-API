@@ -6,7 +6,12 @@ import HttpStatus from 'http-status-codes';
 class DeliveryManController {
   async index(req: Request, res: Response) {
     const response = await DeliveryMan.findAll();
-    return res.send(response);
+    return res.json(response);
+  }
+
+  async show(req: Request, res: Response) {
+    const response = await DeliveryMan.findByPk(req.params.id);
+    return res.json(response);
   }
 
   async store(req: Request, res: Response) {

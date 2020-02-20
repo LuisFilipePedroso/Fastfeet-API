@@ -11,7 +11,14 @@ class DeliveryController {
     const response = await Delivery.findAll({
       include: [DeliveryMan, Recipient],
     });
-    return res.send(response);
+    return res.json(response);
+  }
+
+  async show(req: Request, res: Response) {
+    const response = await Delivery.findByPk(req.params.id, {
+      include: [DeliveryMan, Recipient],
+    });
+    return res.json(response);
   }
 
   async store(req: Request, res: Response) {

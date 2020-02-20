@@ -14,16 +14,19 @@ routes.post('/auth', SessionController.store);
 routes.use(authMiddleware);
 
 routes.get('/recipient', RecipientController.index);
+routes.get('/recipient/:id', RecipientController.show);
 routes.post('/recipient', RecipientController.store);
 routes.put('/recipient/:id', RecipientController.update);
 routes.delete('/recipient/:id', RecipientController.delete);
 
 routes.get('/deliveryman', DeliveryManController.index);
+routes.get('/deliveryman/:id', DeliveryManController.show);
 routes.post('/deliveryman', DeliveryManController.store);
 routes.put('/deliveryman/:id', DeliveryManController.update);
 routes.delete('/deliveryman/:id', DeliveryManController.delete);
 
 routes.get('/delivery', DeliveryController.index);
+routes.get('/delivery/:id', DeliveryController.show);
 routes.post('/delivery', DeliveryController.store);
 routes.put('/delivery/:id', DeliveryController.update);
 routes.delete('/delivery/:id', DeliveryController.delete);
