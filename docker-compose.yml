@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app: 
+    container_name: fastfeet-api
+    build: .
+    ports: 
+      - "3333:3333"
+    depends_on:
+      - postgres
+    links: 
+      - postgres
+    command: npm run dev
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    environment:
+      DATABASE_URL: postgres://postgres:elefante@postgres:5432/fastfeet
+      PORT: 3333
+  postgres:
+    container_name: fastfeet-database
+    image: postgres:11
+    ports:
+      - "5432:5432"
+    environment: 
+      POSTGRES_DB: fastfeet
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: elefante
