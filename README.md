@@ -14,7 +14,7 @@ For this project, we are using:
   <li>Typescript</li>
   <li>Sequelize-typescript</li>
   <li>Express</li>
-  <li>Yup (To validate the data)</li>
+  <li>Yup</li>
 </ul>
 
 ## 🛤 Routes 
