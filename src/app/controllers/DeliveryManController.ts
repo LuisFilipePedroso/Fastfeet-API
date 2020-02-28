@@ -3,8 +3,23 @@ import DeliveryMan from '@models/DeliveryMan';
 import * as Yup from 'yup';
 import HttpStatus from 'http-status-codes';
 
+import { Op } from 'sequelize';
+
 class DeliveryManController {
   async index(req: Request, res: Response) {
+    const { name } = req.query;
+
+    if (name) {
+      const response = await DeliveryMan.findAll({
+        where: {
+          name: {
+            [Op.like]: `%${name}%`,
+          },
+        },
+      });
+      return res.json(response);
+    }
+
     const response = await DeliveryMan.findAll();
     return res.json(response);
   }
@@ -42,7 +57,7 @@ class DeliveryManController {
     }
 
     const response = await DeliveryMan.create(req.body);
-    return res.json(response);
+    return res.status(HttpStatus.CREATED).json(response);
   }
 
   async update(req: Request, res: Response) {

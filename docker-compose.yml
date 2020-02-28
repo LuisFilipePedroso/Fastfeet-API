@@ -1,27 +1,58 @@
-version: '3'
+version: "3"
+
 services:
-  app: 
+  app:
     container_name: fastfeet-api
     build: .
-    ports: 
-      - "3333:3333"
     depends_on:
       - postgres
-    links: 
+      - redis
+      - mongo
+    links:
       - postgres
+      - redis
+      - mongo
     command: npm run dev
+    ports:
+      - 3333:3333
+      - 9229:9229
     volumes:
-      - .:/usr/app/
+      - .:/usr/app
       - /usr/app/node_modules
     environment:
-      DATABASE_URL: postgres://postgres:elefante@postgres:5432/fastfeet
+      NODE_ENV: dev
       PORT: 3333
+      DB_HOST: postgres
+  jobs:
+    container_name: fastfeet-jobs
+    image: node:dubnium-alpine
+    working_dir: /usr/jobs
+    command: sh -c "npm install && npm run build && npm run queue"
+    volumes:
+      - .:/usr/jobs
+    links:
+      - postgres
+      - redis
+      - mongo
+    environment:
+      NODE_ENV: dev
+      DB_HOST: postgres
   postgres:
-    container_name: fastfeet-database
+    container_name: fastfeet-postgres
     image: postgres:11
     ports:
       - "5432:5432"
-    environment: 
+    environment:
       POSTGRES_DB: fastfeet
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: elefante
+  mongo:
+    container_name: fastfeet-mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+  redis:
+    container_name: fastfeet-redis
+    image: redis:alpine
+    expose:
+      - 6379

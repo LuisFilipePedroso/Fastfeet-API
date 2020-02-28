@@ -2,12 +2,32 @@ import { Request, Response } from 'express';
 import Delivery from '@models/Delivery';
 import Recipient from '@models/Recipient';
 import DeliveryMan from '@models/DeliveryMan';
+import File from '@models/File';
 
 import * as Yup from 'yup';
 import HttpStatus from 'http-status-codes';
 
+import NewDeliveryMail from '@jobs/NewDeliveryMail';
+import Queue from '@lib/Queue';
+
+import { Op } from 'sequelize';
+
 class DeliveryController {
   async index(req: Request, res: Response) {
+    const { product } = req.query;
+
+    if (product) {
+      const response = await Delivery.findAll({
+        include: [DeliveryMan, Recipient, File],
+        where: {
+          product: {
+            [Op.like]: `%${product}%`,
+          },
+        },
+      });
+      return res.json(response);
+    }
+
     const response = await Delivery.findAll({
       include: [DeliveryMan, Recipient],
     });
@@ -34,28 +54,36 @@ class DeliveryController {
         .json({ error: 'Validations fails' });
     }
 
-    const recipientExists = await Recipient.findOne({
+    const recipient = await Recipient.findOne({
       where: { id: req.body.recipient_id },
     });
 
-    if (!recipientExists) {
+    if (!recipient) {
       return res
         .status(HttpStatus.BAD_REQUEST)
         .json({ error: 'Recipient does not exists' });
     }
 
-    const deliveryManExists = await DeliveryMan.findOne({
+    const deliveryman = await DeliveryMan.findOne({
       where: { id: req.body.deliveryman_id },
     });
 
-    if (!deliveryManExists) {
+    if (!deliveryman) {
       return res
         .status(HttpStatus.BAD_REQUEST)
         .json({ error: 'Delivery man does not exists' });
     }
 
     const response = await Delivery.create(req.body);
-    return res.json(response);
+
+    await Queue.add(NewDeliveryMail.key, {
+      name: deliveryman.name,
+      email: deliveryman.email,
+      product: req.body.product,
+      recipient: recipient.name,
+    });
+
+    return res.status(HttpStatus.CREATED).json(response);
   }
 
   async update(req: Request, res: Response) {
@@ -80,11 +108,11 @@ class DeliveryController {
     }
 
     if (req.body.recipient_id && req.body.recipient_id !== model.recipient_id) {
-      const recipientExists = await Recipient.findOne({
+      const recipient = await Recipient.findOne({
         where: { id: req.body.recipient_id },
       });
 
-      if (!recipientExists) {
+      if (!recipient) {
         return res
           .status(HttpStatus.BAD_REQUEST)
           .json({ error: 'Recipient does not exists' });
@@ -95,11 +123,11 @@ class DeliveryController {
       req.body.deliveryman_id &&
       req.body.deliveryman_id !== model.deliveryman_id
     ) {
-      const deliveryManExists = await DeliveryMan.findOne({
+      const deliveryman = await DeliveryMan.findOne({
         where: { id: req.body.deliveryman_id },
       });
 
-      if (!deliveryManExists) {
+      if (!deliveryman) {
         return res
           .status(HttpStatus.BAD_REQUEST)
           .json({ error: 'Delivery man does not exists' });

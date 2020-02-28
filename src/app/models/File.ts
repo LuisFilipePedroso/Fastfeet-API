@@ -6,8 +6,9 @@ import {
   AutoIncrement,
   IsNumeric,
   AllowNull,
-  HasMany,
+  DataType,
 } from 'sequelize-typescript';
+
 import IFile from '@interfaces/File';
 
 @Table({ modelName: 'files' })
@@ -26,6 +27,11 @@ class File extends Model<IFile> {
   @AllowNull(false)
   @Column
   path: string;
+
+  @Column(DataType.VIRTUAL)
+  get url() {
+    return `${process.env.APP_URL}/files/${this.path}`;
+  }
 }
 
 export default File;

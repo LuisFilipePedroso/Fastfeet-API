@@ -5,6 +5,7 @@ import User from '@models/User';
 import DeliveryMan from '@models/DeliveryMan';
 import Delivery from '@models/Delivery';
 import File from '@models/File';
+import DeliveryProblem from '@models/DeliveryProblem';
 
 class Database {
   private connection: Sequelize;
@@ -20,7 +21,7 @@ class Database {
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [Recipient, User, DeliveryMan, Delivery, File],
+      models: [Recipient, User, DeliveryMan, Delivery, File, DeliveryProblem],
       define: {
         timestamps: true,
         underscored: true,

@@ -3,8 +3,23 @@ import Recipient from '@models/Recipient';
 import * as Yup from 'yup';
 import HttpStatus from 'http-status-codes';
 
+import { Op } from 'sequelize';
+
 class RecipientController {
   async index(req: Request, res: Response) {
+    const { name } = req.query;
+
+    if (name) {
+      const response = await Recipient.findAll({
+        where: {
+          name: {
+            [Op.like]: `${name}`,
+          },
+        },
+      });
+      return res.json(response);
+    }
+
     const response = await Recipient.findAll();
     return res.json(response);
   }
@@ -46,7 +61,7 @@ class RecipientController {
     }
 
     const response = await Recipient.create(req.body);
-    return res.json(response);
+    return res.status(HttpStatus.CREATED).json(response);
   }
 
   async update(req: Request, res: Response) {

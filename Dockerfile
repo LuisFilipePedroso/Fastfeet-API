@@ -1,12 +1,12 @@
-FROM node:12.14.1-alpine
+FROM node:dubnium-alpine
 
 WORKDIR /usr/app
 
-COPY package.json .
-RUN npm install 
+COPY package*.json ./
+RUN npm install
 
 COPY . .
 
-EXPOSE 3333
+EXPOSE 3000
 
 CMD ["npm", "run", "dev"]
