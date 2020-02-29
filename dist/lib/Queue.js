@@ -3,8 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const bee_queue_1 = tslib_1.__importDefault(require("bee-queue"));
 const NewDeliveryMail_1 = tslib_1.__importDefault(require("@jobs/NewDeliveryMail"));
+const CancelDeliveryMail_1 = tslib_1.__importDefault(require("@jobs/CancelDeliveryMail"));
 const redis_1 = tslib_1.__importDefault(require("@config/redis"));
-const jobs = [NewDeliveryMail_1.default];
+const jobs = [NewDeliveryMail_1.default, CancelDeliveryMail_1.default];
 class Queue {
     constructor() {
         this.queus = {};

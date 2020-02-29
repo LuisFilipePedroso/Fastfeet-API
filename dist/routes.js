@@ -37,10 +37,8 @@ routes.delete('/delivery/:id', DeliveryController_1.default.delete);
 routes.put('/delivery/:id/start', StartDeliveryController_1.default.update);
 routes.put('/delivery/:id/finish', FinishDeliveryController_1.default.update);
 routes.post('/files', upload.single('file'), FileController_1.default.store);
-routes.get('/deliveryproblem', DeliveryProblemController_1.default.index);
-routes.get('/deliveryproblem/:id', DeliveryProblemController_1.default.find);
-routes.post('/deliveryproblem', DeliveryProblemController_1.default.store);
-routes.put('/deliveryproblem/:id', DeliveryProblemController_1.default.update);
-routes.delete('/deliveryproblem/:id', DeliveryProblemController_1.default.delete);
+routes.get('/delivery/:id/problems', DeliveryProblemController_1.default.index);
+routes.post('/delivery/:id/problems', DeliveryProblemController_1.default.store);
+routes.delete('/problem/:id/cancel-delivery', DeliveryProblemController_1.default.delete);
 exports.default = routes;
 //# sourceMappingURL=routes.js.map

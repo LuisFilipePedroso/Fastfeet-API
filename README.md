@@ -147,3 +147,57 @@ The body of this should be like this:
 To delete a delivery, you should access the following route:
 
     DELETE /delivery/:id
+
+### Delivery Problems
+
+To list all problems of a delivery, you should access the following route:
+
+    GET /delivery/:id/problems
+
+To register a new problem of a delivery, you should access the following route:
+
+    POST /delivery/:id/problems
+
+The body for this request must follow this format:
+
+    {
+      "description": "The description of the problem"
+    }
+
+Depending of the gravity of a problem, the delivery can be cancel, and the delivery man is going to receive an email about it. To cancel a delivery, you should access the following route:
+
+    DELETE /problem/:id/cancel-delivery
+
+PS: This is a **private route** and only administrators can access this path.
+
+### Shipping a delivery
+
+To start the shipping, it should access the following route: 
+
+    PUT /delivery/:id/start
+
+**This route does not required a body.** The start_date field is going to receive the current time.
+
+To end the shipping, it should access the following route: 
+
+    PUT /delivery/:id/finish
+
+The body for this request must follow this format:
+
+    {
+      "signature_id": 1
+    }
+
+This field is the ID of the image on File table. It means that you must have to first create an image with the signature.
+
+### File
+
+To create a new File, you should access the following route: 
+
+    POST /files
+
+The body for this request should be of type Multipart Form and the key must use the name "file", like this:
+
+<h1 align="center">
+  <img alt="Fastfeet" title="Fastfeet" src=".github/file_request.png" width="450px" />
+</h1>
