@@ -20,7 +20,7 @@ class DeliveryMan extends Model<IDeliveryMan> {
   @IsNumeric
   @HasMany(() => Delivery, {
     foreignKey: 'deliveryman_id',
-    as: 'deliverymanId',
+    as: 'deliveryman',
   })
   @Column
   id: number;

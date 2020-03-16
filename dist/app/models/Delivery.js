@@ -19,7 +19,7 @@ tslib_1.__decorate([
     sequelize_typescript_1.AllowNull(false),
     sequelize_typescript_1.BelongsTo(() => Recipient_1.default, {
         foreignKey: 'recipient_id',
-        as: 'recipientId',
+        as: 'recipient',
     }),
     sequelize_typescript_1.Column,
     tslib_1.__metadata("design:type", Number)
@@ -28,7 +28,7 @@ tslib_1.__decorate([
     sequelize_typescript_1.AllowNull(false),
     sequelize_typescript_1.BelongsTo(() => DeliveryMan_1.default, {
         foreignKey: 'deliveryman_id',
-        as: 'deliverymanId',
+        as: 'deliveryman',
     }),
     sequelize_typescript_1.Column,
     tslib_1.__metadata("design:type", Number)
@@ -37,7 +37,7 @@ tslib_1.__decorate([
     sequelize_typescript_1.AllowNull(true),
     sequelize_typescript_1.BelongsTo(() => File_1.default, {
         foreignKey: 'signature_id',
-        as: 'signatureId',
+        as: 'signature',
     }),
     sequelize_typescript_1.Column,
     tslib_1.__metadata("design:type", Number)

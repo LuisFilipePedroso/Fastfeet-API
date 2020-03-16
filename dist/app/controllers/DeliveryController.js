@@ -26,7 +26,7 @@ class DeliveryController {
                 return res.json(response);
             }
             const response = yield Delivery_1.default.findAll({
-                include: [DeliveryMan_1.default, Recipient_1.default],
+                include: [DeliveryMan_1.default, Recipient_1.default, File_1.default],
             });
             return res.json(response);
         });

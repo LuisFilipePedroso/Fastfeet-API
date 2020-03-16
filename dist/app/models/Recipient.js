@@ -12,7 +12,7 @@ tslib_1.__decorate([
     sequelize_typescript_1.IsNumeric,
     sequelize_typescript_1.HasMany(() => Delivery_1.default, {
         foreignKey: 'deliveryman_id',
-        as: 'deliverymanId',
+        as: 'deliveryman',
     }),
     sequelize_typescript_1.Column,
     tslib_1.__metadata("design:type", Number)

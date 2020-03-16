@@ -28,7 +28,7 @@ class Delivery extends Model<IDelivery> {
   @AllowNull(false)
   @BelongsTo(() => Recipient, {
     foreignKey: 'recipient_id',
-    as: 'recipientId',
+    as: 'recipient',
   })
   @Column
   recipient_id: number;
@@ -36,7 +36,7 @@ class Delivery extends Model<IDelivery> {
   @AllowNull(false)
   @BelongsTo(() => DeliveryMan, {
     foreignKey: 'deliveryman_id',
-    as: 'deliverymanId',
+    as: 'deliveryman',
   })
   @Column
   deliveryman_id: number;
@@ -44,7 +44,7 @@ class Delivery extends Model<IDelivery> {
   @AllowNull(true)
   @BelongsTo(() => File, {
     foreignKey: 'signature_id',
-    as: 'signatureId',
+    as: 'signature',
   })
   @Column
   signature_id?: number;

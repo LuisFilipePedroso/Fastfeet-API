@@ -16,20 +16,14 @@ class DeliveryController {
   async index(req: Request, res: Response) {
     const { product } = req.query;
 
-    if (product) {
-      const response = await Delivery.findAll({
-        include: [DeliveryMan, Recipient, File],
-        where: {
-          product: {
-            [Op.like]: `%${product}%`,
-          },
-        },
-      });
-      return res.json(response);
-    }
-
     const response = await Delivery.findAll({
-      include: [DeliveryMan, Recipient],
+      include: [DeliveryMan, Recipient, File],
+      where: {
+        product: {
+          [Op.like]: `%${product || ''}%`,
+        },
+      },
+      order: [['id', 'DESC']],
     });
     return res.json(response);
   }

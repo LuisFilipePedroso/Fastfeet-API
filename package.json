@@ -20,6 +20,7 @@
     "@types/yup": "^0.26.30",
     "bcryptjs": "^2.4.3",
     "bee-queue": "^1.2.3",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
