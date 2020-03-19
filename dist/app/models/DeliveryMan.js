@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const sequelize_typescript_1 = require("sequelize-typescript");
 const Delivery_1 = tslib_1.__importDefault(require("@models/Delivery"));
+const File_1 = tslib_1.__importDefault(require("@models/File"));
 let DeliveryMan = class DeliveryMan extends sequelize_typescript_1.Model {
 };
 tslib_1.__decorate([
@@ -24,6 +25,10 @@ tslib_1.__decorate([
 ], DeliveryMan.prototype, "name", void 0);
 tslib_1.__decorate([
     sequelize_typescript_1.AllowNull(true),
+    sequelize_typescript_1.BelongsTo(() => File_1.default, {
+        foreignKey: 'avatar_id',
+        as: 'avatar',
+    }),
     sequelize_typescript_1.Column,
     tslib_1.__metadata("design:type", Number)
 ], DeliveryMan.prototype, "avatar_id", void 0);

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import DeliveryMan from '@models/DeliveryMan';
+import File from '@models/File';
 import * as Yup from 'yup';
 import HttpStatus from 'http-status-codes';
 
@@ -11,6 +12,7 @@ class DeliveryManController {
 
     if (name) {
       const response = await DeliveryMan.findAll({
+        include: [File],
         where: {
           name: {
             [Op.like]: `%${name}%`,
@@ -20,12 +22,16 @@ class DeliveryManController {
       return res.json(response);
     }
 
-    const response = await DeliveryMan.findAll();
+    const response = await DeliveryMan.findAll({
+      include: [File],
+    });
     return res.json(response);
   }
 
   async show(req: Request, res: Response) {
-    const response = await DeliveryMan.findByPk(req.params.id);
+    const response = await DeliveryMan.findByPk(req.params.id, {
+      include: [File],
+    });
     return res.json(response);
   }
 

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const DeliveryMan_1 = tslib_1.__importDefault(require("@models/DeliveryMan"));
+const File_1 = tslib_1.__importDefault(require("@models/File"));
 const Yup = tslib_1.__importStar(require("yup"));
 const http_status_codes_1 = tslib_1.__importDefault(require("http-status-codes"));
 const sequelize_1 = require("sequelize");
@@ -11,6 +12,7 @@ class DeliveryManController {
             const { name } = req.query;
             if (name) {
                 const response = yield DeliveryMan_1.default.findAll({
+                    include: [File_1.default],
                     where: {
                         name: {
                             [sequelize_1.Op.like]: `%${name}%`,
@@ -25,7 +27,9 @@ class DeliveryManController {
     }
     show(req, res) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            const response = yield DeliveryMan_1.default.findByPk(req.params.id);
+            const response = yield DeliveryMan_1.default.findByPk(req.params.id, {
+                include: [File_1.default],
+            });
             return res.json(response);
         });
     }

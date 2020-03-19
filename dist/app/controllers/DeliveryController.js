@@ -14,19 +14,14 @@ class DeliveryController {
     index(req, res) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             const { product } = req.query;
-            if (product) {
-                const response = yield Delivery_1.default.findAll({
-                    include: [DeliveryMan_1.default, Recipient_1.default, File_1.default],
-                    where: {
-                        product: {
-                            [sequelize_1.Op.like]: `%${product}%`,
-                        },
-                    },
-                });
-                return res.json(response);
-            }
             const response = yield Delivery_1.default.findAll({
                 include: [DeliveryMan_1.default, Recipient_1.default, File_1.default],
+                where: {
+                    product: {
+                        [sequelize_1.Op.like]: `%${product || ''}%`,
+                    },
+                },
+                order: [['id', 'DESC']],
             });
             return res.json(response);
         });
