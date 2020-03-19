@@ -12,6 +12,11 @@ import Queue from '@lib/Queue';
 
 class DeliveryProblemController {
   async index(req: Request, res: Response) {
+    const response = await DeliveryProblem.findAll();
+    return res.json(response);
+  }
+
+  async show(req: Request, res: Response) {
     const response = await DeliveryProblem.findAll({
       where: {
         delivery_id: req.params.id,
@@ -22,7 +27,6 @@ class DeliveryProblemController {
 
   async store(req: Request, res: Response) {
     const schema = Yup.object().shape({
-      delivery_id: Yup.number().required(),
       description: Yup.string().required(),
     });
 
@@ -38,6 +42,12 @@ class DeliveryProblemController {
       return res
         .status(HttpStatus.BAD_REQUEST)
         .json({ error: 'Delivery does not exists' });
+    }
+
+    if (delivery?.canceled_at) {
+      return res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ error: 'Delivery was already canceled' });
     }
 
     const deliveryProblem = await DeliveryProblem.create({

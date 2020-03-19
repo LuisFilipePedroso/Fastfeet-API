@@ -5,10 +5,13 @@ import {
   AllowNull,
   PrimaryKey,
   AutoIncrement,
+  BelongsTo,
   IsNumeric,
 } from 'sequelize-typescript';
 
 import IDeliveryProblem from '@interfaces/DeliveryProblem';
+
+import Delivery from '@models/Delivery';
 
 @Table({ modelName: 'delivery_problems' })
 class DeliveryProblem extends Model<IDeliveryProblem> {
@@ -20,7 +23,10 @@ class DeliveryProblem extends Model<IDeliveryProblem> {
   id: number;
 
   @AllowNull(false)
-  @IsNumeric
+  @BelongsTo(() => Delivery, {
+    foreignKey: 'delivery_id',
+    as: 'delivery',
+  })
   @Column
   delivery_id: number;
 

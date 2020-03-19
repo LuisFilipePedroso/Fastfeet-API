@@ -13,18 +13,18 @@ module.exports = {
                 references: {
                     model: 'recipients',
                     key: 'id',
-                    onUpdate: 'CASCADE',
-                    onDelete: 'CASCADE',
                 },
+                onUpdate: 'CASCADE',
+                onDelete: 'CASCADE',
             },
             deliveryman_id: {
                 type: Sequelize.INTEGER,
                 references: {
                     model: 'deliveryman',
                     key: 'id',
-                    onUpdate: 'CASCADE',
-                    onDelete: 'CASCADE',
                 },
+                onUpdate: 'CASCADE',
+                onDelete: 'CASCADE',
             },
             product: {
                 type: Sequelize.STRING(255),

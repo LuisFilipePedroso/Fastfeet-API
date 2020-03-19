@@ -21,7 +21,9 @@ class DeliveryManController {
                 });
                 return res.json(response);
             }
-            const response = yield DeliveryMan_1.default.findAll();
+            const response = yield DeliveryMan_1.default.findAll({
+                include: [File_1.default],
+            });
             return res.json(response);
         });
     }

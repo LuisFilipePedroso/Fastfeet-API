@@ -50,7 +50,8 @@ routes.put('/delivery/:id/finish', FinishDeliveryController.update);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
-routes.get('/delivery/:id/problems', DeliveryProblemController.index);
+routes.get('/deliveries/problems', DeliveryProblemController.index);
+routes.get('/delivery/:id/problems', DeliveryProblemController.show);
 routes.post('/delivery/:id/problems', DeliveryProblemController.store);
 
 routes.delete('/problem/:id/cancel-delivery', DeliveryProblemController.delete);
