@@ -11,6 +11,12 @@ const Queue_1 = tslib_1.__importDefault(require("@lib/Queue"));
 class DeliveryProblemController {
     index(req, res) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const response = yield DeliveryProblem_1.default.findAll();
+            return res.json(response);
+        });
+    }
+    show(req, res) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
             const response = yield DeliveryProblem_1.default.findAll({
                 where: {
                     delivery_id: req.params.id,
@@ -20,9 +26,9 @@ class DeliveryProblemController {
         });
     }
     store(req, res) {
+        var _a;
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             const schema = Yup.object().shape({
-                delivery_id: Yup.number().required(),
                 description: Yup.string().required(),
             });
             if (!(yield schema.isValid(req.body))) {
@@ -35,6 +41,11 @@ class DeliveryProblemController {
                 return res
                     .status(http_status_codes_1.default.BAD_REQUEST)
                     .json({ error: 'Delivery does not exists' });
+            }
+            if ((_a = delivery) === null || _a === void 0 ? void 0 : _a.canceled_at) {
+                return res
+                    .status(http_status_codes_1.default.BAD_REQUEST)
+                    .json({ error: 'Delivery was already canceled' });
             }
             const deliveryProblem = yield DeliveryProblem_1.default.create({
                 delivery_id: req.params.id,

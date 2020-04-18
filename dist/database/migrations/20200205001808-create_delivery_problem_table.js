@@ -13,9 +13,9 @@ module.exports = {
                 references: {
                     model: 'deliveries',
                     key: 'id',
-                    onUpdate: 'CASCADE',
-                    onDelete: 'SET NULL',
                 },
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL',
             },
             description: {
                 type: Sequelize.STRING(500),

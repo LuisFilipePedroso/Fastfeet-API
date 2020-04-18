@@ -4,8 +4,11 @@ const tslib_1 = require("tslib");
 const Delivery_1 = tslib_1.__importDefault(require("@models/Delivery"));
 const sequelize_1 = require("sequelize");
 const http_status_codes_1 = tslib_1.__importDefault(require("http-status-codes"));
+const Recipient_1 = tslib_1.__importDefault(require("@models/Recipient"));
+const DeliveryMan_1 = tslib_1.__importDefault(require("@models/DeliveryMan"));
 const query = {
     pending: (deliveryman_id) => Delivery_1.default.findAll({
+        include: [DeliveryMan_1.default, Recipient_1.default],
         where: {
             deliveryman_id,
             end_date: null,
@@ -13,6 +16,7 @@ const query = {
         },
     }),
     done: (deliveryman_id) => Delivery_1.default.findAll({
+        include: [DeliveryMan_1.default, Recipient_1.default],
         where: {
             deliveryman_id,
             [sequelize_1.Op.or]: [

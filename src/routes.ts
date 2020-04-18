@@ -20,6 +20,22 @@ const upload = multer(multerConfig);
 
 routes.post('/auth', SessionController.store);
 
+routes.get(
+  '/deliveryman/:id/deliveries',
+  DeliveriesByDeliveryManController.index
+);
+routes.get('/deliveryman/:id', DeliveryManController.show);
+
+routes.get('/delivery/:id', DeliveryController.show);
+
+routes.put('/delivery/:id/start', StartDeliveryController.update);
+routes.put('/delivery/:id/finish', FinishDeliveryController.update);
+
+routes.get('/delivery/:id/problems', DeliveryProblemController.show);
+routes.post('/delivery/:id/problems', DeliveryProblemController.store);
+
+routes.post('/files', upload.single('file'), FileController.store);
+
 routes.use(authMiddleware);
 
 routes.get('/recipient', RecipientController.index);
@@ -29,30 +45,16 @@ routes.put('/recipient/:id', RecipientController.update);
 routes.delete('/recipient/:id', RecipientController.delete);
 
 routes.get('/deliveryman', DeliveryManController.index);
-routes.get('/deliveryman/:id', DeliveryManController.show);
 routes.post('/deliveryman', DeliveryManController.store);
 routes.put('/deliveryman/:id', DeliveryManController.update);
 routes.delete('/deliveryman/:id', DeliveryManController.delete);
 
-routes.get(
-  '/deliveryman/:id/deliveries',
-  DeliveriesByDeliveryManController.index
-);
-
 routes.get('/delivery', DeliveryController.index);
-routes.get('/delivery/:id', DeliveryController.show);
 routes.post('/delivery', DeliveryController.store);
 routes.put('/delivery/:id', DeliveryController.update);
 routes.delete('/delivery/:id', DeliveryController.delete);
 
-routes.put('/delivery/:id/start', StartDeliveryController.update);
-routes.put('/delivery/:id/finish', FinishDeliveryController.update);
-
-routes.post('/files', upload.single('file'), FileController.store);
-
 routes.get('/deliveries/problems', DeliveryProblemController.index);
-routes.get('/delivery/:id/problems', DeliveryProblemController.show);
-routes.post('/delivery/:id/problems', DeliveryProblemController.store);
 
 routes.delete('/problem/:id/cancel-delivery', DeliveryProblemController.delete);
 

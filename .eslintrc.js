@@ -34,10 +34,8 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': 'off'
   },
   settings: {
-    "import/resolver": {
-      node: {
-        extensions: [".js", ".jsx", ".ts", ".tsx"]
-      }
+    "import/resolver":{
+      "typescript":{}
     }
   },
 };

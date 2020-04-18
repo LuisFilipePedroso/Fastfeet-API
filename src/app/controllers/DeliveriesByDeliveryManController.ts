@@ -5,9 +5,13 @@ import { Op } from 'sequelize';
 
 import HttpStatus from 'http-status-codes';
 
+import Recipient from '@models/Recipient';
+import DeliveryMan from '@models/DeliveryMan';
+
 const query = {
   pending: (deliveryman_id: number) =>
     Delivery.findAll({
+      include: [DeliveryMan, Recipient],
       where: {
         deliveryman_id,
         end_date: null,
@@ -16,6 +20,7 @@ const query = {
     }),
   done: (deliveryman_id: number) =>
     Delivery.findAll({
+      include: [DeliveryMan, Recipient],
       where: {
         deliveryman_id,
         [Op.or]: [
