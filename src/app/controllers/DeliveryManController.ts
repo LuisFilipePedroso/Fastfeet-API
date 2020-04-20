@@ -32,6 +32,11 @@ class DeliveryManController {
     const response = await DeliveryMan.findByPk(req.params.id, {
       include: [File],
     });
+
+    if (!response) {
+      return res.status(400).json({ error: 'Delivery man does not exist' });
+    }
+
     return res.json(response);
   }
 

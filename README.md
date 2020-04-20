@@ -4,7 +4,7 @@
 
 ## :rocket: The project 
 
-The goal of this project is to manage a shipping company. Is possible to sign new deliveries, new delivery man and new recipients. It's also can see the shipments of a recipient and inform a problem of a shiptment.
+The goal of this project is to manage a shipping company. Is possible to register new deliveries, new delivery man and new recipients. It's also can see the shipments of a recipient and inform a problem of a shiptment.
 
 ## :construction_worker: Technologies 
 
@@ -201,3 +201,9 @@ The body for this request should be of type Multipart Form and the key must use 
 <h1 align="center">
   <img alt="Fastfeet" title="Fastfeet" src=".github/file_request.png" width="450px" />
 </h1>
+
+### Running the project
+
+To run this project, first you must have to install docker and after that, you must have to create your .env file, following the .env.example file. Then, execute the command:
+
+    docker-compose up
